@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+import random
 # Create a function named detect_ranges that gets a list of integers as a
 # parameter. The function should then sort this list, and transform the list
 # into another list where pairs are used for all the detected intervals. So
@@ -9,39 +9,32 @@
 #
 # print(detect_ranges([2,5,4,8,12,6,7,10,13]))
 # [2,(4,9),10,(12,14)]
+def detect_range(userList):
+    # First element in the list
+    start = userList[0]
+    d = 1
 
-def detect_ranges(L):
-    # sort list
-    L = sorted(L)
-    print(L)
-    # L = [2, 4, 5, 6, 7, 8, 10, 12, 13]
+    for elem in userList[1:]:
+        # Element in row, just count up
+        if elem == start + d:
+            d += 1
+            continue
 
-    isConsecNum = False
-    curIdx = 0
-    newList = []
+        # Otherwise, yield
+        yield start if d == 1 else (start, start+d)
 
+        start = elem
+        d = 1
 
-    for i in range(len(L)-1):
-        isConsecNum = (L[i+1] == L[i] + 1) # if next number is 3
+    yield start if d == 1 else (start, start+d)
 
-        if not isConsecNum:
-            newList.append(L[curIdx]) if curIdx == i else newList.append((L[curIdx], L[i]+1))
-            curIdx = i+1
-    print("i:",i)
-    print("curIdx:", curIdx)
-    
-    # append either a number or a tuple
-    isConsecNum = (L[i+1] == L[i] + 1) # if next number is 3
-
-    if not isConsecNum:
-        newList.append(L[curIdx]) if curIdx == i else newList.append((L[curIdx], L[i]+1))
-        curIdx = i+1
-
-
-    return newList
+def detect_ranges(userList):
+    L = sorted(userList)   # sort list
+    return list(detect_range(L))
 
 def main():
     L = [2, 5, 4, 8, 12, 6, 7, 10, 13]
+    # L = random.sample(range(50), 30)
     result = detect_ranges(L)
     print(L)
     print(result)
