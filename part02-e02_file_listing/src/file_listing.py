@@ -16,26 +16,12 @@ def file_listing(filename="src/listing.txt"):
     listings = []
     with open(filename, "r") as rf:
         pattern = r"(\d+)\s+([A-Za-z]+)\s+(\d+)\s+(\d+):(\d+)\s+(.*)\n"
-        # for line in rf: # -rwxr-xr-x 1 jttoivon hyad-all    2356 Dec 11 11:50 add_colab_link.py
-        #     # (s, mth, d, hr, min, file)
-        #
-        #     size, mth, day, hr, min, file_name = (re.findall(pattern, line)[0])
+        for line in rf:
+            size, mth, day, hr, min, file_name = (re.findall(pattern, line)[0])
+            listings.append((int(size), mth, int(day), int(hr), int(min), file_name))
 
-        return [(re.findall(pattern, line)[0]) for line in rf]
-
-        # line = rf.readline()
-        # listings.append(line)
-        # while rf:
-        #     line = rf.readline()
-        #     listings.append(line)
-        # for i in range(5):            # And read the first five lines
-        #     line = rf.readline()
-        #     print(line)
-    # pattern = ""
-    #
-    #
-    # return [(s, mth, d, hr, min, file) for x in re.findall(pattern, s)]
-
+        return listings
+    
 def main():
     file_listing()
 
