@@ -4,31 +4,8 @@ PART ONE:
 Create a function called summary that gets a filename as a parameter. The input
 file should contain a floating point number on each line of the file. Make your
 function read these numbers and then return a triple containing the sum, average,
-and standard deviation of these numbers for the file. As a reminder, the formula
-for corrected sample standard deviation is :
+and standard deviation of these numbers for the file.
 
-\sqrt{\frac{\sum_{i=0}^{n}{(x_i-\bar{x})^2}}{n-1}}, \text{ where } \bar{x} \text{ is the average}
-n−1
-∑
-i=0
-n
-​
- (x
-i
-​
- −
-x
-ˉ
- )
-2
-
-​
-
-​
- , where
-x
-ˉ
-  is the average
 The main function should call the function summary for each filename in the list
 sys.argv[1:] of command line parameters. (Skip sys.argv[0] since it contains the
 name of the current program.)
@@ -68,27 +45,18 @@ def summary(filename):
                 nums.append(float(line.strip()))
             except ValueError:
                 continue
+
         n = len(nums)
         num_sum = sum(nums)
         avg = num_sum/n
-
         dev = math.sqrt(sum([(x-avg)**2 for x in nums])/(n-1))
 
     return num_sum, avg, dev
 
 def main():
-    for temp_file in ["src/example.txt", "src/example2.txt", "src/example3.txt"]:
-        # TODO: change for loop to loop within files in directory
-        print("File: {} Sum: {:.6f} Average: {:.6f} Stddev: {:.6f}".format(temp_file,*summary(temp_file)))
-
-    # if len(sys.argv) == 1:
-    #     filename = "src/example.txt"
-    #     summary(filename)
-    # else:
-    #     for filename in sys.argv[1:]:
-    #         summary(filename)
-
-
+    if len(sys.argv) > 1:
+        for example_file in sys.argv[1:]:
+            print("File: {} Sum: {:.6f} Average: {:.6f} Stddev: {:.6f}".format(example_file,*summary(example_file)))
 
 if __name__ == "__main__":
     main()
