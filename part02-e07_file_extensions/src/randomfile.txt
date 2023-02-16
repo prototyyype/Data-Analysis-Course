@@ -1,0 +1,6 @@
+rand.om
+testing
+archive.tar.gz
+randomf.ile
+file1.txt
+file2.txt
